@@ -9,7 +9,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "HardPress.dev",
+  title: "hardpress.dev",
   description: "Launching the dream startup!",
 }
 

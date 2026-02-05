@@ -1,5 +1,4 @@
 import { allPosts } from "contentlayer/generated"
-import { compareDesc } from "date-fns"
 import Link from "next/link"
 import { Metadata } from "next"
 
@@ -10,8 +9,11 @@ export const metadata: Metadata = {
 
 export default function PostsIndexPage() {
   // Sort posts descending by date (latest first)
-  const posts = allPosts
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+  const posts = allPosts.sort((a, b) => {
+    const dateA = new Date(a.date).getTime()
+    const dateB = new Date(b.date).getTime()
+    return dateB - dateA // latest first
+  })
 
   return (
     <div className="space-y-8 py-6">

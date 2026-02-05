@@ -2,7 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Remove the margin from the very last element in any prose block */
+/* 1. Remove the "ghost space" at the bottom of pages */
 .prose > :last-child {
   margin-bottom: 0 !important;
+}
+
+/* 2. Tighten space above and below headers within articles */
+.prose h2 {
+  margin-top: 1.5rem !important; /* Reduces gap above "What is hardpress?" */
+  margin-bottom: 0.5rem !important; /* Reduces gap below headers */
+}
+
+/* 3. Tighten space for paragraphs and blockquotes */
+.prose p, .prose blockquote {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
 }

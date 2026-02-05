@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Remove the margin from the very last element in any prose block */
+.prose > :last-child {
+  margin-bottom: 0 !important;
+}

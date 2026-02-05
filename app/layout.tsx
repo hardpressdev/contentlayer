@@ -35,6 +35,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
               </div>
             </header>
             <main>{children}</main>
+            <footer className="mt-24 text-center text-sm text-slate-500 dark:text-slate-400">
+              ©hardpress.dev | 2026
+            </footer>
           </div>
           <Analytics />
         </ThemeProvider>

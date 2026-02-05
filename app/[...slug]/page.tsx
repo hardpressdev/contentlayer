@@ -1,60 +1,37 @@
-import { notFound } from "next/navigation"
+import { allPosts } from "contentlayer/generated"
+import { compareDesc } from "date-fns"
+import Link from "next/link"
 import { Metadata } from "next"
-import { allPages } from "contentlayer/generated"
 
-import { Mdx } from "@/components/mdx-components"
-
-interface PageProps {
-  params: {
-    slug: string[]
-  }
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "All posts sorted by date (latest first).",
 }
 
-async function getPageFromParams(params: PageProps["params"]) {
-  const slug = params?.slug?.join("/")
-  const page = allPages.find((page) => page.slugAsParams === slug)
-
-  if (!page) {
-    null
-  }
-
-  return page
-}
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const page = await getPageFromParams(params)
-
-  if (!page) {
-    return {}
-  }
-
-  return {
-    title: page.title,
-    description: page.description,
-  }
-}
-
-export async function generateStaticParams(): Promise<PageProps["params"][]> {
-  return allPages.map((page) => ({
-    slug: page.slugAsParams.split("/"),
-  }))
-}
-
-export default async function PagePage({ params }: PageProps) {
-  const page = await getPageFromParams(params)
-
-  if (!page) {
-    notFound()
-  }
+export default function PostsIndexPage() {
+  // Sort posts descending by date (latest first)
+  const posts = allPosts
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
 
   return (
-    <article className="py-6 prose dark:prose-invert">
-      <h1>{page.title}</h1>
-      {page.description && <p className="text-xl">{page.description}</p>}
-      <hr />
-      <Mdx code={page.body.code} />
-    </article>
+    <div className="space-y-8 py-6">
+      {posts.map((post) => (
+        <article key={post._id} className="prose dark:prose-invert">
+          <h2 className="text-2xl font-semibold">
+            <Link href={`/posts/${post.slugAsParams}`}>
+              {post.title}
+            </Link>
+          </h2>
+
+          <time className="block text-sm text-muted-foreground">
+            {new Date(post.date).toLocaleDateString()}
+          </time>
+
+          {post.description && (
+            <p className="mt-2">{post.description}</p>
+          )}
+        </article>
+      ))}
+    </div>
   )
 }

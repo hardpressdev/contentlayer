@@ -11,8 +11,8 @@ export default function Home() {
     <div className="prose dark:prose-invert">
       {posts.map((post) => (
         <article key={post._id} className="mb-12 last:mb-0">
-          <Link href={post.slug} className="no-underline group">
-            <h2 className="mb-0 group-hover:underline">
+          <Link href={post.slug}>
+            <h2 className="mb-0">
               {post.title}
             </h2>
           </Link>

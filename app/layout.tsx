@@ -2,7 +2,6 @@ import Link from "next/link"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-//import { Analytics } from "@/components/analytics"
 import { Analytics } from "@vercel/analytics/react"
 import { ModeToggle } from "@/components/mode-toggle"
 
@@ -34,8 +33,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 </nav>
               </div>
             </header>
+            
             <main>{children}</main>
-            <footer className="mt-24 text-center text-sm text-slate-500 dark:text-slate-400">
+            
+            {/* Removed flex-grow logic. Forced text-left and reduced margin significantly */}
+            <footer className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 text-left text-sm text-slate-500 dark:text-slate-400">
               ©hardpress.dev | 2026
             </footer>
           </div>
